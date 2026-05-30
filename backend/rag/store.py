@@ -1,10 +1,11 @@
 import chromadb
 import os
 import hashlib
+from typing import Optional
 from .embedder import embed_texts, embed_query
 
 COLLECTION_NAME = "knowledge_base"
-_client: chromadb.Client | None = None
+_client: Optional[chromadb.Client] = None
 _collection = None
 
 

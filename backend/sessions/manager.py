@@ -1,5 +1,6 @@
 import asyncio
 from datetime import datetime, timedelta
+from typing import Optional
 from models.state import ExecutionState
 
 _sessions: dict[str, tuple[ExecutionState, datetime]] = {}
@@ -21,7 +22,7 @@ def update(session_id: str, state: ExecutionState) -> None:
     _sessions[session_id] = (state, datetime.utcnow())
 
 
-def get(session_id: str) -> ExecutionState | None:
+def get(session_id: str) -> Optional[ExecutionState]:
     if session_id not in _sessions:
         return None
     state, _ = _sessions[session_id]

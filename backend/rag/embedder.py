@@ -1,6 +1,7 @@
+from typing import Optional
 from openai import AsyncOpenAI
 
-_client: AsyncOpenAI | None = None
+_client: Optional[AsyncOpenAI] = None
 
 EMBEDDING_MODEL = "text-embedding-3-small"
 
