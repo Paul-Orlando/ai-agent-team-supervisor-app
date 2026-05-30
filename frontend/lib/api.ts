@@ -1,6 +1,6 @@
 import { SSEEvent } from "./types";
 
-const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+const BACKEND = process.env.NEXT_PUBLIC_BACKEND_URL || "https://ai-agent-team-supervisor-app-production.up.railway.app";
 
 export async function* streamAgents(
   userInput: string,
