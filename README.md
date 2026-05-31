@@ -93,6 +93,13 @@ User Request
 - Session management — 30 minute session timeout
 
 ---
+| Report | Query | Review Result |
+|---|---|---|
+| example_report_01.pdf | Microservices app | APPROVED |
+| example_report_02.pdf | Food Chatbot Node.js | CHANGES REQUIRED → APPROVED |
+| example_report_03.pdf | Food Chatbot Python | CHANGES REQUIRED → APPROVED |
+
+---
 
 ## Agent System Prompts
 
