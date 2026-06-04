@@ -94,6 +94,10 @@ export function PdfUpload({ ragChunks, onChunksUpdated }: Props) {
           )}
         </div>
 
+        <p className="mt-2 text-xs text-muted-foreground/70 leading-snug">
+          Optional. In your request, mention &ldquo;refer to the uploaded document&rdquo; to direct the agents to use it.
+        </p>
+
         {lastUpload && (
           <p className="mt-2 text-xs text-green-600 dark:text-green-400">
             ✓ {lastUpload.name} — {lastUpload.chunks} chunks added
