@@ -1,4 +1,6 @@
 """Supervisor agent — exact system prompt from JSON llmAgentflow_0, structured output."""
+import os
+
 from agents import Agent, Runner, ModelSettings
 from models.schemas import SupervisorDecision
 from models.state import ExecutionState
@@ -32,7 +34,7 @@ OUTPUT REQUIREMENTS:
 Return structured JSON only."""
 
 
-def build_supervisor(model: str = "gpt-4o-mini") -> Agent:
+def build_supervisor(model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> Agent:
     return Agent(
         name="Supervisor",
         instructions=SYSTEM_PROMPT,
@@ -43,7 +45,7 @@ def build_supervisor(model: str = "gpt-4o-mini") -> Agent:
 
 
 async def run_supervisor(
-    state: ExecutionState, rag_context: str, model: str = "gpt-4o-mini"
+    state: ExecutionState, rag_context: str, model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")
 ) -> SupervisorDecision:
     agent = build_supervisor(model)
     context_block = f"KNOWLEDGE BASE CONTEXT:\n{rag_context}\n\n---\n\n" if rag_context else ""

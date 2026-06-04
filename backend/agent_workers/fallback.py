@@ -1,4 +1,6 @@
 """Fallback/Escalation agent — triggers on max iterations (from workflow.png)."""
+import os
+
 from agents import Agent, Runner, ModelSettings
 from models.state import ExecutionState
 
@@ -24,7 +26,7 @@ Always include:
 - Specific actionable next steps"""
 
 
-def build_fallback(model: str = "gpt-4o-mini") -> Agent:
+def build_fallback(model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> Agent:
     return Agent(
         name="FallbackHandler",
         instructions=SYSTEM_PROMPT,
@@ -33,7 +35,7 @@ def build_fallback(model: str = "gpt-4o-mini") -> Agent:
     )
 
 
-async def run_fallback(state: ExecutionState, model: str = "gpt-4o-mini") -> str:
+async def run_fallback(state: ExecutionState, model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> str:
     agent = build_fallback(model)
 
     history_summary = ""

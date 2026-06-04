@@ -1,4 +1,6 @@
-from pydantic import BaseModel
+import os
+
+from pydantic import BaseModel, Field
 from typing import Literal, Optional
 
 
@@ -13,7 +15,7 @@ class SupervisorDecision(BaseModel):
 class RunAgentsRequest(BaseModel):
     user_input: str
     session_id: Optional[str] = None
-    model: str = "gpt-4o-mini"
+    model: str = Field(default_factory=lambda: os.getenv("MODEL_NAME", "gpt-4o-mini"))
     max_iterations: int = 5
 
 

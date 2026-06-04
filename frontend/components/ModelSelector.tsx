@@ -16,8 +16,7 @@ interface Props {
 }
 
 const MODELS = [
-  { value: "gpt-4o-mini", label: "GPT-4o Mini (fast, cheap)" },
-  { value: "gpt-4o",      label: "GPT-4o (best quality)" },
+  { value: "gpt-4o-mini", label: "GPT-4o Mini" },
 ];
 
 export function ModelSelector({ model, onChange, disabled }: Props) {

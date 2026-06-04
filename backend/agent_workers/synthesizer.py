@@ -1,4 +1,6 @@
 """Final Synthesizer agent — exact system prompt from JSON llmAgentflow_3, streaming."""
+import os
+
 from typing import AsyncGenerator
 from agents import Agent, Runner, ModelSettings
 from agents.stream_events import RawResponsesStreamEvent
@@ -30,7 +32,7 @@ USER_MESSAGE = """Generate a complete engineering delivery package including:
 8. Future Scalability Improvements"""
 
 
-def build_synthesizer(model: str = "gpt-4o-mini") -> Agent:
+def build_synthesizer(model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> Agent:
     return Agent(
         name="FinalSynthesizer",
         instructions=SYSTEM_PROMPT,
@@ -40,7 +42,7 @@ def build_synthesizer(model: str = "gpt-4o-mini") -> Agent:
 
 
 async def stream_synthesizer(
-    state: ExecutionState, rag_context: str, model: str = "gpt-4o-mini"
+    state: ExecutionState, rag_context: str, model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")
 ) -> AsyncGenerator[str, None]:
     agent = build_synthesizer(model)
     context_block = f"KNOWLEDGE BASE CONTEXT:\n{rag_context}\n\n---\n\n" if rag_context else ""

@@ -1,4 +1,6 @@
 """Software Engineer agent — exact system prompt from JSON llmAgentflow_1, streaming."""
+import os
+
 from typing import AsyncGenerator
 from agents import Agent, Runner, ModelSettings
 from agents.stream_events import RawResponsesStreamEvent
@@ -24,7 +26,7 @@ OUTPUT FORMAT:
 7. Testing Recommendations"""
 
 
-def build_engineer(model: str = "gpt-4o-mini") -> Agent:
+def build_engineer(model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> Agent:
     return Agent(
         name="SoftwareEngineer",
         instructions=SYSTEM_PROMPT,
@@ -34,7 +36,7 @@ def build_engineer(model: str = "gpt-4o-mini") -> Agent:
 
 
 async def stream_engineer(
-    state: ExecutionState, rag_context: str, model: str = "gpt-4o-mini"
+    state: ExecutionState, rag_context: str, model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")
 ) -> AsyncGenerator[str, None]:
     agent = build_engineer(model)
     context_block = f"KNOWLEDGE BASE CONTEXT:\n{rag_context}\n\n---\n\n" if rag_context else ""

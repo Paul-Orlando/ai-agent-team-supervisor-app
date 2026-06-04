@@ -1,4 +1,6 @@
 """Planner agent — decomposes user request into execution plan (from workflow.png)."""
+import os
+
 from agents import Agent, Runner, ModelSettings
 
 SYSTEM_PROMPT = """You are a strategic AI Task Planner.
@@ -18,7 +20,7 @@ OUTPUT FORMAT:
 5. Risk Factors"""
 
 
-def build_planner(model: str = "gpt-4o-mini") -> Agent:
+def build_planner(model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> Agent:
     return Agent(
         name="Planner",
         instructions=SYSTEM_PROMPT,
@@ -27,7 +29,7 @@ def build_planner(model: str = "gpt-4o-mini") -> Agent:
     )
 
 
-async def run_planner(user_input: str, rag_context: str, model: str = "gpt-4o-mini") -> str:
+async def run_planner(user_input: str, rag_context: str, model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> str:
     agent = build_planner(model)
     context_block = f"KNOWLEDGE BASE CONTEXT:\n{rag_context}\n\n---\n\n" if rag_context else ""
     prompt = f"{context_block}User Request:\n{user_input}"

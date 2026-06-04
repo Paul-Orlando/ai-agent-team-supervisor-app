@@ -1,4 +1,6 @@
 """Code Reviewer agent — exact system prompt from JSON llmAgentflow_2, streaming."""
+import os
+
 from typing import AsyncGenerator
 from agents import Agent, Runner, ModelSettings
 from agents.stream_events import RawResponsesStreamEvent
@@ -30,7 +32,7 @@ RESPONSE FORMAT:
 Provide actionable and specific feedback."""
 
 
-def build_reviewer(model: str = "gpt-4o-mini") -> Agent:
+def build_reviewer(model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")) -> Agent:
     return Agent(
         name="CodeReviewer",
         instructions=SYSTEM_PROMPT,
@@ -40,7 +42,7 @@ def build_reviewer(model: str = "gpt-4o-mini") -> Agent:
 
 
 async def stream_reviewer(
-    state: ExecutionState, rag_context: str, model: str = "gpt-4o-mini"
+    state: ExecutionState, rag_context: str, model: str = os.getenv("MODEL_NAME", "gpt-4o-mini")
 ) -> AsyncGenerator[str, None]:
     agent = build_reviewer(model)
     context_block = f"KNOWLEDGE BASE CONTEXT:\n{rag_context}\n\n---\n\n" if rag_context else ""
